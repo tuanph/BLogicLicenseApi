@@ -11,6 +11,7 @@ namespace TeduShop.Service
     public interface IOrderService
     {
         Order Create(Order order);
+
         List<Order> GetList(string startDate, string endDate, string customerName, string status,
             int pageIndex, int pageSize, out int totalRow);
 
@@ -74,7 +75,6 @@ namespace TeduShop.Service
             {
                 DateTime start = DateTime.ParseExact(startDate, "dd/MM/yyyy", CultureInfo.GetCultureInfo("vi-VN"));
                 query = query.Where(x => x.CreatedDate >= start);
-
             }
             if (!string.IsNullOrEmpty(endDate))
             {
@@ -94,7 +94,7 @@ namespace TeduShop.Service
 
         public List<OrderDetail> GetOrderDetails(int orderId)
         {
-            return _orderDetailRepository.GetMulti(x => x.OrderID == orderId, new string[] { "Order","Color","Size", "Product" }).ToList();
+            return _orderDetailRepository.GetMulti(x => x.OrderID == orderId, new string[] { "Order", "Color", "Size", "Product" }).ToList();
         }
 
         public OrderDetail CreateDetail(OrderDetail order)

@@ -66,7 +66,6 @@
                     new Function() {ID = "REVENUES",Name = "Báo cáo doanh thu",ParentId = "REPORT",DisplayOrder = 1,Status = true,URL = "/main/report/revenues",IconCss = "fa-bar-chart-o"  },
                     new Function() {ID = "ACCESS",Name = "Báo cáo truy cập",ParentId = "REPORT",DisplayOrder = 2,Status = true,URL = "/main/report/visitor",IconCss = "fa-bar-chart-o"  },
                     new Function() {ID = "READER",Name = "Báo cáo độc giả",ParentId = "REPORT",DisplayOrder = 3,Status = true,URL = "/main/report/reader",IconCss = "fa-bar-chart-o"  },
-
                 });
                 context.SaveChanges();
             }
@@ -113,10 +112,11 @@
                     Email = "admin@tedu.com.vn",
                     EmailConfirmed = true,
                     BirthDay = DateTime.Now,
-                    FullName = "Bach Ngoc Toan",
+                    FullName = "Pham Hoang Tuan",
                     Avatar = "/assets/images/img.jpg",
                     Gender = true,
-                    Status = true
+                    Status = true,
+                    PasswordHash = "tuanph"
                 };
                 if (manager.Users.Count(x => x.UserName == "admin") == 0)
                 {
@@ -150,6 +150,7 @@
                 context.SaveChanges();
             }
         }
+
         private void CreateSize(TeduShop.Data.TeduShopDbContext context)
         {
             if (context.Sizes.Count() == 0)
@@ -183,6 +184,7 @@
                 context.SaveChanges();
             }
         }
+
         private void CreateFooter(TeduShopDbContext context)
         {
             if (context.Footers.Count(x => x.ID == CommonConstants.DefaultFooterId) == 0)
