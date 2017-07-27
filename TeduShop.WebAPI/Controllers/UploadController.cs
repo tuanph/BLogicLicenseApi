@@ -36,9 +36,9 @@ namespace TeduShop.Web.Controllers
                     if (postedFile != null && postedFile.ContentLength > 0)
                     {
 
-                        int MaxContentLength = 1024 * 1024 * 1; //Size = 1 MB
+                        int MaxContentLength = 1024 * 1024 * 10; //Size = 1 MB
 
-                        IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
+                        IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png", ".jpeg" };
                         var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
                         var extension = ext.ToLower();
                         if (!AllowedFileExtensions.Contains(extension))
