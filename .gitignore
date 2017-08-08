@@ -234,8 +234,8 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
-TeduShop.Web/UploadedFiles/
-/TeduShop.Web/Reports
-/TeduShop.WebAPI/UploadedFiles/Avatars
-/TeduShop.WebAPI/UploadedFiles/Products
-/TeduShop.WebAPI/Reports
+BLogicLicense.Web/UploadedFiles/
+/BLogicLicense.Web/Reports
+/BLogicLicense.WebAPI/UploadedFiles/Avatars
+/BLogicLicense.WebAPI/UploadedFiles/Products
+/BLogicLicense.WebAPI/Reports
