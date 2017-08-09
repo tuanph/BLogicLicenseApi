@@ -47,6 +47,11 @@ namespace BLogicLicense.Data
         public DbSet<Announcement> Announcements { set; get; }
         public DbSet<AnnouncementUser> AnnouncementUsers { set; get; }
 
+        public DbSet<ProductKey> ProductKeys { set; get; }
+        public DbSet<Software> Softwares { set; get; }
+        public DbSet<Store> Stores { set; get; }
+        public DbSet<Transaction> Transactions { set; get; }
+        public DbSet<UnRegisterKey> UnRegisterKeys { set; get; }
         public static BLogicLicenseDbContext Create()
         {
             return new BLogicLicenseDbContext();

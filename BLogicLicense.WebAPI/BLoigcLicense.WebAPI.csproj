@@ -372,6 +372,11 @@
     <Content Include="Templates\product-detail.html" />
     <Content Include="UploadedFiles\Avatars\image001.png" />
     <Content Include="UploadedFiles\Avatars\ms.PNG" />
+    <Content Include="UploadedFiles\Products\754967p6.jpg" />
+    <Content Include="UploadedFiles\Products\avarta.jpg" />
+    <Content Include="UploadedFiles\Products\images %281%29.jpg" />
+    <Content Include="UploadedFiles\Products\pexels-photo-456710.jpeg" />
+    <Content Include="UploadedFiles\Products\SNAG-0004%282%29.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
