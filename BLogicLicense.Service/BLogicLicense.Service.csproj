@@ -75,6 +75,8 @@
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatisticService.cs" />
+    <Compile Include="SoftwareService.cs" />
+    <Compile Include="StoreService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLogicLicense.Common\BLogicLicense.Common.csproj">

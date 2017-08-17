@@ -19,7 +19,7 @@ using BLogicLicense.Web.Models.DataContracts;
 namespace BLogicLicense.Web.Controllers
 {
     [RoutePrefix("api/appRole")]
-    //[Authorize]
+    [Authorize]
     public class AppRoleController : ApiControllerBase
     {
         private IPermissionService _permissionService;

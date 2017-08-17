@@ -95,6 +95,9 @@
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\FunctionRepository.cs" />
+    <Compile Include="Repositories\SoftwareRepository.cs" />
+    <Compile Include="Repositories\ProductKeyRepository.cs" />
+    <Compile Include="Repositories\StoreRepository.cs" />
     <Compile Include="Repositories\MenuRepository.cs" />
     <Compile Include="Repositories\OrderDetailRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />

@@ -314,6 +314,8 @@
     <Compile Include="Controllers\ProductImageController.cs" />
     <Compile Include="Controllers\ProductQuantityController.cs" />
     <Compile Include="Controllers\StatisticController.cs" />
+    <Compile Include="Controllers\SoftwareController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -329,6 +331,8 @@
     <Compile Include="Models\Product\ProductImageViewModel.cs" />
     <Compile Include="Models\Product\ProductQuantityViewModel.cs" />
     <Compile Include="Models\Product\SizeViewModel.cs" />
+    <Compile Include="Models\Software\SoftwareViewModel.cs" />
+    <Compile Include="Models\Store\StoreViewModel.cs" />
     <Compile Include="Models\System\ApplicationGroupViewModel.cs" />
     <Compile Include="Models\System\ApplicationRoleViewModel.cs" />
     <Compile Include="Models\System\ApplicationUserViewModel.cs" />

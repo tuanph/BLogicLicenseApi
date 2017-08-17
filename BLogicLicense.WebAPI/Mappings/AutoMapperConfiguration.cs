@@ -2,6 +2,8 @@
 using BLogicLicense.Model.Models;
 using BLogicLicense.Web.Models;
 using BLogicLicense.Web.Models.Common;
+using BLogicLicense.Web.Models.Software;
+using BLogicLicense.Web.Models.Store;
 
 namespace BLogicLicense.Web.Mappings
 {
@@ -33,6 +35,8 @@ namespace BLogicLicense.Web.Mappings
                 cfg.CreateMap<OrderDetail, OrderDetailViewModel>();
                 cfg.CreateMap<Announcement, AnnouncementViewModel>();
                 cfg.CreateMap<AnnouncementUser, AnnouncementUserViewModel>();
+                cfg.CreateMap<Store, StoreViewModel>();
+                cfg.CreateMap<Software, SoftwareViewModel>();
             });
         }
     }

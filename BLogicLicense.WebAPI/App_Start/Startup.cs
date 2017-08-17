@@ -9,13 +9,14 @@ using Owin;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using System.Web.Mvc;
 using BLogicLicense.Data;
 using BLogicLicense.Data.Infrastructure;
 using BLogicLicense.Data.Repositories;
 using BLogicLicense.Model.Models;
 using BLogicLicense.Service;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 [assembly: OwinStartup(typeof(BLogicLicense.Web.App_Start.Startup))]
 
@@ -64,6 +65,14 @@ namespace BLogicLicense.Web.App_Start
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver((IContainer)container); //Set the WebApi DependencyResolver
+
+            //return camelCase json
+            var formatters = GlobalConfiguration.Configuration.Formatters;
+            var jsonFormatter = formatters.JsonFormatter;
+            var settings = jsonFormatter.SerializerSettings;
+            settings.Formatting = Formatting.Indented;
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.Re‌​ferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }
     }
 }
