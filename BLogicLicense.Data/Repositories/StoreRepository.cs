@@ -1,5 +1,6 @@
 ﻿using BLogicLicense.Data.Infrastructure;
 using BLogicLicense.Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace BLogicLicense.Data.Repositories
@@ -8,6 +9,7 @@ namespace BLogicLicense.Data.Repositories
     {
         IEnumerable<Store> GetAll(string filter, int pageIndex, int pageSize, out int totalRow);
         Store UpdateProductKeyForStore(Store newStore);
+        Store EditStore(Store newStore);
     }
 
     public class StoreRepository : RepositoryBase<Store>, IStoreRepository
@@ -35,7 +37,6 @@ namespace BLogicLicense.Data.Repositories
             totalRow = query.Count();
             return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
-
         public Store UpdateProductKeyForStore(Store newStore)
         {
             var existsStore = this.GetSingleByCondition(p => p.ID == newStore.ID, new string[] { "ProductKeys" });
@@ -47,11 +48,28 @@ namespace BLogicLicense.Data.Repositories
                 }
                 foreach (ProductKey newChild in newStore.ProductKeys.ToList())
                 {
+                    newChild.LastRenewal = DateTime.Now;
                     newChild.Store = null;
                     existsStore.ProductKeys.Add(newChild);
                 }
 
             }
+            DbContext.SaveChanges();
+            return newStore;
+        }
+        public Store EditStore(Store newStore)
+        {
+            var existsStore = this.GetSingleByCondition(p => p.ID == newStore.ID, new string[] { "ProductKeys" });
+            if (existsStore != null)
+            {
+                existsStore.Address = newStore.Address;
+                existsStore.Agent = newStore.Agent;
+                existsStore.Email = newStore.Email;
+                existsStore.Name = newStore.Name;
+                existsStore.Phone = newStore.Phone;
+                existsStore.Token = newStore.Token;
+            }
+            DbContext.Entry(existsStore).State = System.Data.Entity.EntityState.Modified;
             DbContext.SaveChanges();
             return newStore;
         }

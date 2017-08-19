@@ -9,10 +9,12 @@ using BLogicLicense.Service;
 using BLogicLicense.Web.Models.Store;
 using AutoMapper;
 using BLogicLicense.Model.Models;
+using BLogicLicense.Common.Exceptions;
 
 namespace BLogicLicense.Web.Controllers
 {
     [RoutePrefix("api/store")]
+    //[Authorize]
     public class StoreController : ApiControllerBase
     {
         private IStoreService _storeService;
@@ -72,7 +74,7 @@ namespace BLogicLicense.Web.Controllers
                     return 3;
                 foreach (var pr in productKeys)
                 {
-                    if (pr.DateExpire.Date.Subtract(DateTime.Today).TotalDays < 0 || !pr.IsLock) //Software expried
+                    if (pr.DateExpire.Date.Subtract(DateTime.Today).TotalDays < 0 || pr.IsLock) //Software expried
                     {
                         return 2;//Expired
                     }
@@ -114,6 +116,10 @@ namespace BLogicLicense.Web.Controllers
                         ProductKeys = storeVm.ProductKeys
                     };
                     newStore = _storeService.Create(newStore);
+                    if (newStore.ID == -1)//Duplicated token
+                    {
+                        return request.CreateResponse(HttpStatusCode.BadRequest, new ErrorReturn($"Token '{newStore.Token}' is duplicated."));
+                    }
                     _storeService.Save();
                     return request.CreateResponse(HttpStatusCode.OK, newStore);
 
@@ -141,19 +147,10 @@ namespace BLogicLicense.Web.Controllers
                     //TDestination Map<TSource, TDestination>(TSource source);
                     newStore = new Store()
                     {
-                        Name = storeVm.Name,
-                        Token = storeVm.Token,
-                        Address = storeVm.Address,
-                        CreatedDate = DateTime.Now,
-                        ExpriedType = 3,
-                        Phone = storeVm.Phone,
-                        Agent = storeVm.Agent,
-                        Email = storeVm.Email,
-                        IsDeleted = false,
                         ProductKeys = storeVm.ProductKeys,
                         ID = storeVm.ID
                     };
-                    newStore = _storeService.Edit(newStore);
+                    newStore = _storeService.EditProductKeys(newStore);
                     //_storeService.Save();
                     return request.CreateResponse(HttpStatusCode.OK, newStore);
                 }
@@ -170,7 +167,7 @@ namespace BLogicLicense.Web.Controllers
 
         [HttpPut]
         [Route("editBasic")]
-        public HttpResponseMessage Edit(HttpRequestMessage request, StoreViewModel storeVm)
+        public HttpResponseMessage EditBasic(HttpRequestMessage request, StoreViewModel storeVm)
         {
             if (ModelState.IsValid)
             {
@@ -189,12 +186,33 @@ namespace BLogicLicense.Web.Controllers
                         Agent = storeVm.Agent,
                         Email = storeVm.Email,
                         IsDeleted = false,
-                        ProductKeys = storeVm.ProductKeys,
                         ID = storeVm.ID
                     };
-                    newStore = _storeService.Edit(newStore);
-                    //_storeService.Save();
+                    newStore = _storeService.EditStore(newStore);
                     return request.CreateResponse(HttpStatusCode.OK, newStore);
+                }
+                catch (Exception dex)
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, dex.Message);
+                }
+            }
+            else
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+        }
+
+
+        [Route("delete")]
+        [HttpDelete]
+        public HttpResponseMessage Delete(HttpRequestMessage request, string id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    this._storeService.Delete(id);
+                    return request.CreateResponse(HttpStatusCode.OK, id);
                 }
                 catch (Exception dex)
                 {

@@ -14,7 +14,9 @@ namespace BLogicLicense.Service
         List<Store> GetListPaging(string filter, int pageIndex, int pageSize, out int totalRow);
         void Save();
         Store Create(Store newStore);
-        Store Edit(Store newStore);
+        Store EditProductKeys(Store newStore);
+        Store EditStore(Store newStore);
+        string Delete(string storeId);
     }
 
     public class StoreService : IStoreService
@@ -32,46 +34,49 @@ namespace BLogicLicense.Service
 
         public Store Create(Store newStore)
         {
+            //Check duplicate Customer token
+            var existsStore = this._storeRepository.GetSingleByCondition(s => s.Token == newStore.Token && !s.IsDeleted);
+            if (existsStore != null)
+            {
+                newStore.ID = -1;
+                return newStore;
+            }
             newStore.CreatedDate = DateTime.Now;
             _storeRepository.Add(newStore);
             _unitOfWork.Commit();
             return newStore;
         }
 
-        public Store Edit(Store newStore)
+        public string Delete(string storeId)
         {
-            //delete or update productkey first
-            //var oldProductKeys = _productKeyRepository.GetAll().Where(p => p.StoreID == newStore.ID);
-            //var existsStore = _storeRepository.GetSingleByCondition(p => p.ID == newStore.ID, new string[] { "ProductKeys" });
+            //Check store has product keys
+            var productKeys = this._productKeyRepository.GetMulti(pk => pk.StoreID.ToString() == storeId).ToList();
+            if (productKeys.Count == 0)//empty store. Remove from database
+            {
+                this._storeRepository.DeleteMulti(s => s.ID.ToString() == storeId);
+            }
+            else
+            {
+                foreach (var pk in productKeys)
+                {
+                    pk.IsLock = true;
+                    pk.LastRenewal = DateTime.Now;
+                }
+                var existsedStore = this._storeRepository.GetSingleById(Convert.ToInt32(storeId));
+                existsedStore.IsDeleted = true;
+            }
+            this.Save();
+            return storeId;
+        }
 
-            //if (existsStore != null)
-            //{
-            //    //existsStore.ProductKeys = newStore.ProductKeys;
-            //    foreach (var oldPk in existsStore.ProductKeys)
-            //    {
-            //        existsStore.ProductKeys.Remove(oldPk);
-            //    }
-            //    for (int i = existsStore.ProductKeys.Count - 1; i >= 0; i--)
-            //    {
-            //        //existsStore.ProductKeys.Remove(existsStore.ProductKeys.find);
-            //    }
-
-            //    foreach (var newPk in newStore.ProductKeys)
-            //    {
-            //        existsStore.ProductKeys.Add(newPk);
-            //    }
-            //}
-            //_productKeyRepository.DeleteMulti(p=>p.StoreID==newStore.ID);
-
-            //foreach (var pk in newStore.ProductKeys)
-            //{
-            //    pk.LastRenewal = DateTime.Now;
-            //    var productKey = _productKeyRepository.Add(pk);
-            //}
-            //_unitOfWork.Commit();
-            //_storeRepository.Update(newStore);
-            //_unitOfWork.Commit();
+        public Store EditProductKeys(Store newStore)
+        {
             return _storeRepository.UpdateProductKeyForStore(newStore);
+        }
+
+        public Store EditStore(Store newStore)
+        {
+            return _storeRepository.EditStore(newStore);
         }
 
         public List<Store> GetListPaging(string filter, int pageIndex, int pageSize, out int totalRow)
