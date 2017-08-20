@@ -120,6 +120,7 @@
     <Compile Include="Repositories\SupportOnlineRepository.cs" />
     <Compile Include="Repositories\SystemConfigRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
+    <Compile Include="Repositories\UnregisterKeyRepository.cs" />
     <Compile Include="Repositories\VisitorStatisticRepository.cs" />
     <Compile Include="BLogicLicenseDbContext.cs" />
   </ItemGroup>

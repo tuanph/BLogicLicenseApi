@@ -50,6 +50,19 @@ namespace BLogicLicense.Web.Controllers
             });
         }
 
+        [Route("gellAllWithOutProductKey")]
+        [HttpGet]
+        public HttpResponseMessage GellAllWithOutProductKey(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                var model = _storeService.GellAllWithOutProductKey();
+                response = request.CreateResponse(HttpStatusCode.OK, model);
+                return response;
+            });
+
+        }
         public void UpdateStoreType(List<Store> stores)
         {
 
@@ -150,8 +163,18 @@ namespace BLogicLicense.Web.Controllers
                         ProductKeys = storeVm.ProductKeys,
                         ID = storeVm.ID
                     };
-                    newStore = _storeService.EditProductKeys(newStore);
-                    //_storeService.Save();
+                    List<string> errorPk = new List<string>();
+                    newStore = _storeService.EditProductKeys(newStore, ref errorPk);
+                    if (newStore.ID == -1)//Duplicated token
+                    {
+                        string message = string.Empty;
+                        foreach (string key in errorPk)
+                        {
+                            message += $"'{ key}', ";
+                        }
+                        message = message.Remove(message.Length - 2, 2);
+                        return request.CreateResponse(HttpStatusCode.BadRequest, new ErrorReturn($"Key {message} is duplicated."));
+                    }
                     return request.CreateResponse(HttpStatusCode.OK, newStore);
                 }
                 catch (Exception dex)

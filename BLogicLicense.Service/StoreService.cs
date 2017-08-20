@@ -14,9 +14,10 @@ namespace BLogicLicense.Service
         List<Store> GetListPaging(string filter, int pageIndex, int pageSize, out int totalRow);
         void Save();
         Store Create(Store newStore);
-        Store EditProductKeys(Store newStore);
+        Store EditProductKeys(Store newStore, ref List<string> arrErrorPk);
         Store EditStore(Store newStore);
         string Delete(string storeId);
+        List<Store> GellAllWithOutProductKey();
     }
 
     public class StoreService : IStoreService
@@ -69,8 +70,21 @@ namespace BLogicLicense.Service
             return storeId;
         }
 
-        public Store EditProductKeys(Store newStore)
+        public Store EditProductKeys(Store newStore, ref List<string> arrErrorPk)
         {
+            //Check productkey exists
+            foreach (var pk in newStore.ProductKeys)
+            {
+                var existsKey = this._productKeyRepository.GetSingleByCondition(p => p.Key == pk.Key && p.ID != pk.ID);
+                if (existsKey != null)
+                {
+                    arrErrorPk.Add(pk.Key);
+                    newStore.ID = -1;
+                }
+
+            }
+            if (newStore.ID == -1)
+                return newStore;
             return _storeRepository.UpdateProductKeyForStore(newStore);
         }
 
@@ -81,7 +95,13 @@ namespace BLogicLicense.Service
 
         public List<Store> GetListPaging(string filter, int pageIndex, int pageSize, out int totalRow)
         {
-            var stores = _storeRepository.GetAll(filter, pageIndex, pageSize, out totalRow);
+            var stores = _storeRepository.GetListPaging(filter, pageIndex, pageSize, out totalRow);
+            return stores.ToList();
+        }
+
+        public List<Store> GellAllWithOutProductKey()
+        {
+            var stores = _storeRepository.GellAllWithOutProductKey();
             return stores.ToList();
         }
 

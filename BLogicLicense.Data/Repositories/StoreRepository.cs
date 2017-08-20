@@ -7,9 +7,10 @@ namespace BLogicLicense.Data.Repositories
 {
     public interface IStoreRepository : IRepository<Store>
     {
-        IEnumerable<Store> GetAll(string filter, int pageIndex, int pageSize, out int totalRow);
+        IEnumerable<Store> GetListPaging(string filter, int pageIndex, int pageSize, out int totalRow);
         Store UpdateProductKeyForStore(Store newStore);
         Store EditStore(Store newStore);
+        IEnumerable<Store> GellAllWithOutProductKey();
     }
 
     public class StoreRepository : RepositoryBase<Store>, IStoreRepository
@@ -18,7 +19,7 @@ namespace BLogicLicense.Data.Repositories
         {
         }
 
-        public IEnumerable<Store> GetAll(string filter, int pageIndex, int pageSize, out int totalRow)
+        public IEnumerable<Store> GetListPaging(string filter, int pageIndex, int pageSize, out int totalRow)
         {
             IQueryable<Store> query = null;
             if (string.IsNullOrWhiteSpace(filter))
@@ -29,14 +30,27 @@ namespace BLogicLicense.Data.Repositories
             }
             else
             {
+
                 query = (from a in DbContext.Stores.Include("ProductKeys")
                          where a.IsDeleted == false && (a.Name.Contains(filter) || a.Token.Contains(filter) || a.Phone.Contains(filter)
-                         || a.Email.Contains(filter) || a.Agent.Contains(filter))
+                         || a.Email.Contains(filter) || a.Agent.Contains(filter)) || a.ProductKeys.Any(pk => pk.Key.Contains(filter))
                          select a).OrderBy(a => a.Token).ThenBy(a => a.Name);
             }
             totalRow = query.Count();
             return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
+
+        public IEnumerable<Store> GellAllWithOutProductKey()
+        {
+            IQueryable<Store> query = null;
+
+            query = (from a in DbContext.Stores
+                     where a.IsDeleted == false
+                     select a).OrderBy(a => a.Token).ThenBy(a => a.Name);
+            return query.ToList();
+
+        }
+
         public Store UpdateProductKeyForStore(Store newStore)
         {
             var existsStore = this.GetSingleByCondition(p => p.ID == newStore.ID, new string[] { "ProductKeys" });
@@ -73,5 +87,7 @@ namespace BLogicLicense.Data.Repositories
             DbContext.SaveChanges();
             return newStore;
         }
+
+
     }
 }

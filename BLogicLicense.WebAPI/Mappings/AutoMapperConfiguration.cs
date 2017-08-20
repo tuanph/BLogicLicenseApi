@@ -4,6 +4,7 @@ using BLogicLicense.Web.Models;
 using BLogicLicense.Web.Models.Common;
 using BLogicLicense.Web.Models.Software;
 using BLogicLicense.Web.Models.Store;
+using BLogicLicense.Web.Models.UnregisterKey;
 
 namespace BLogicLicense.Web.Mappings
 {
@@ -37,6 +38,7 @@ namespace BLogicLicense.Web.Mappings
                 cfg.CreateMap<AnnouncementUser, AnnouncementUserViewModel>();
                 cfg.CreateMap<Store, StoreViewModel>();
                 cfg.CreateMap<Software, SoftwareViewModel>();
+                cfg.CreateMap<UnRegisterKey, UnregisterKeyViewModel>();
             });
         }
     }
