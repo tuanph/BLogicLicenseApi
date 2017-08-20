@@ -9,7 +9,7 @@ namespace BLogicLicense.Service
     public interface IUnregisterKeyService
     {
         List<UnRegisterKey> GetListPaging(string filter, int pageIndex, int pageSize, out int totalRow);
-
+        int RegisterKey(UnRegisterKey.RegisterKeyViewModel viewModel);
     }
 
     public class UnregisterKeyService : IUnregisterKeyService
@@ -26,6 +26,11 @@ namespace BLogicLicense.Service
             var unregisterKeys = _unregisterKeyRepository.GetListPaging(filter, pageIndex, pageSize, out totalRow);
             return unregisterKeys.ToList();
 
+        }
+
+        public int RegisterKey(RegisterKeyViewModel viewModel)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

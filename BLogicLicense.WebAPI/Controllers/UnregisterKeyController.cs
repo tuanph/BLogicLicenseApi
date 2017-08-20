@@ -14,7 +14,12 @@ namespace BLogicLicense.Web.Controllers
     public class UnregisterKeyController : ApiControllerBase
     {
         private IUnregisterKeyService _unregisterKeyService;
-        public UnregisterKeyController(IErrorService errorService, IUnregisterKeyService unregisterKeyService) : base(errorService) => _unregisterKeyService = unregisterKeyService;
+        public UnregisterKeyController(IErrorService errorService, IUnregisterKeyService unregisterKeyService) : base(errorService)
+        {
+            _unregisterKeyService = unregisterKeyService;
+        }
+
+
 
         [Route("getlistpaging")]
         [HttpGet]
@@ -38,6 +43,20 @@ namespace BLogicLicense.Web.Controllers
                 };
 
                 response = request.CreateResponse(HttpStatusCode.OK, pagedSet);
+                return response;
+            });
+        }
+        [Route("registerkey")]
+        [HttpPost]
+        public HttpResponseMessage RegisterKey(HttpRequestMessage request, RegisterKeyViewModel viewModel)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                RegisterKeyViewModel modelVm = Mapper.Map<UnRegisterKey, RegisterKeyViewModel>(model);
+
+                int id = _unregisterKeyService.RegisterKey(viewModel);
+                response = request.CreateResponse(HttpStatusCode.OK, id);
                 return response;
             });
         }

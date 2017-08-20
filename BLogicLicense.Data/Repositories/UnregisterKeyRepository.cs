@@ -11,7 +11,7 @@ namespace BLogicLicense.Data.Repositories
     }
     public class UnregisterKeyRepository : RepositoryBase<UnRegisterKey>, IUnregisterKeyRepository
     {
-        protected UnregisterKeyRepository(IDbFactory dbFactory) : base(dbFactory)
+        public UnregisterKeyRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
 

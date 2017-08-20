@@ -17,7 +17,7 @@ namespace BLogicLicense.Model.Models
 
         [StringLength(50)]
         [Column(TypeName = "varchar")]
-        public string DeviceID { get; set; }
+        public string DeviceID { get; set; }                          
         [StringLength(50)]
         [Column(TypeName = "nvarchar")]
         public string DeviceName { get; set; }
