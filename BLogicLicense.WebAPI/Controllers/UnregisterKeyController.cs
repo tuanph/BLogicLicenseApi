@@ -3,6 +3,7 @@ using BLogicLicense.Model.Models;
 using BLogicLicense.Service;
 using BLogicLicense.Web.Infrastructure.Core;
 using BLogicLicense.Web.Models.UnregisterKey;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -33,6 +34,10 @@ namespace BLogicLicense.Web.Controllers
                 var model = _unregisterKeyService.GetListPaging(filter, pageIndex, pageSize, out totalRow);
 
                 List<UnregisterKeyViewModel> modelVm = Mapper.Map<List<UnRegisterKey>, List<UnregisterKeyViewModel>>(model);
+                modelVm.ForEach(k => {
+                    k.DateExpried = DateTime.Now.AddMonths(1);
+                    k.StoreID = 1;
+                });
 
                 PaginationSet<UnregisterKeyViewModel> pagedSet = new PaginationSet<UnregisterKeyViewModel>()
                 {
@@ -46,19 +51,19 @@ namespace BLogicLicense.Web.Controllers
                 return response;
             });
         }
-        [Route("registerkey")]
-        [HttpPost]
-        public HttpResponseMessage RegisterKey(HttpRequestMessage request, RegisterKeyViewModel viewModel)
-        {
-            return CreateHttpResponse(request, () =>
-            {
-                HttpResponseMessage response = null;
-                RegisterKeyViewModel modelVm = Mapper.Map<UnRegisterKey, RegisterKeyViewModel>(model);
+        //[Route("registerkey")]
+        //[HttpPost]
+        //public HttpResponseMessage RegisterKey(HttpRequestMessage request, RegisterKeyViewModel viewModel)
+        //{
+        //    return CreateHttpResponse(request, () =>
+        //    {
+        //        HttpResponseMessage response = null;
+        //        RegisterKeyViewModel modelVm = Mapper.Map<UnRegisterKey, RegisterKeyViewModel>(model);
 
-                int id = _unregisterKeyService.RegisterKey(viewModel);
-                response = request.CreateResponse(HttpStatusCode.OK, id);
-                return response;
-            });
-        }
+        //        int id = _unregisterKeyService.RegisterKey(viewModel);
+        //        response = request.CreateResponse(HttpStatusCode.OK, id);
+        //        return response;
+        //    });
+        //}
     }
 }

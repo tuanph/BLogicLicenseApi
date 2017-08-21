@@ -21,13 +21,13 @@ namespace BLogicLicense.Data.Repositories
             if (string.IsNullOrWhiteSpace(filter))
             {
                 query = (from a in DbContext.UnRegisterKeys
-                         select a).OrderBy(a => a.DateConnected);
+                         select a).OrderByDescending(a => a.DateConnected);
             }
             else
             {
                 query = (from a in DbContext.UnRegisterKeys
                          where a.Key.Contains(filter) || a.DeviceID.Contains(filter) || a.DeviceName.Contains(filter)
-                         select a).OrderBy(a => a.DateConnected);
+                         select a).OrderByDescending(a => a.DateConnected);
             }
             totalRow = query.Count();
             return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();

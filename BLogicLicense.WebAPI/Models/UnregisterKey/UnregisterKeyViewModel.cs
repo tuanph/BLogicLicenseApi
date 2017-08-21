@@ -10,5 +10,7 @@ namespace BLogicLicense.Web.Models.UnregisterKey
         public DateTime DateConnected { get; set; }
         public string DeviceID { get; set; }
         public string DeviceName { get; set; }
+        public DateTime DateExpried { get; set; }
+        public int StoreID { get; set; }
     }
 }
