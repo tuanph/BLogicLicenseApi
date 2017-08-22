@@ -34,8 +34,9 @@ namespace BLogicLicense.Web.Controllers
                 var model = _unregisterKeyService.GetListPaging(filter, pageIndex, pageSize, out totalRow);
 
                 List<UnregisterKeyViewModel> modelVm = Mapper.Map<List<UnRegisterKey>, List<UnregisterKeyViewModel>>(model);
-                modelVm.ForEach(k => {
-                    k.DateExpried = DateTime.Now.AddMonths(1);
+                modelVm.ForEach(k =>
+                {
+                    k.DateExpried = DateTime.Today.ToString("dd/MM/yyyy");
                     k.StoreID = 1;
                 });
 
