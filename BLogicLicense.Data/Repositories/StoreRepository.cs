@@ -43,7 +43,6 @@ namespace BLogicLicense.Data.Repositories
         public IEnumerable<Store> GellAllWithOutProductKey()
         {
             IQueryable<Store> query = null;
-
             query = (from a in DbContext.Stores
                      where a.IsDeleted == false
                      select a).OrderBy(a => a.Token).ThenBy(a => a.Name);
