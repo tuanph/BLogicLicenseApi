@@ -117,7 +117,7 @@ namespace BLogicLicense.Web.Controllers
 
                     var announ = _announcementService.GetDetail(newAnnoun.ID);
                     //push notification
-                    TeduShopHub.PushToAllUsers(Mapper.Map<Announcement, AnnouncementViewModel>(announ), null);
+                    TeduShopHub.PushNewAnouncementToAllUsers(Mapper.Map<Announcement, AnnouncementViewModel>(announ), null);
 
                     return request.CreateResponse(HttpStatusCode.OK, announcementVm);
 

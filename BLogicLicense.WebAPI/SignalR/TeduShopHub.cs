@@ -15,8 +15,13 @@ namespace BLogicLicense.Web.SignalR
         private readonly static ConnectionMapping<string> _connections =
             new ConnectionMapping<string>();
 
+        public static void PushTotalUnregisterKeyToAllUsers(int count, TeduShopHub hub)
+        {
+            IHubConnectionContext<dynamic> clients = GetClients(hub);
+            clients.All.totalUnregisterKey(count);
+        }
 
-        public static void PushToAllUsers(AnnouncementViewModel message, TeduShopHub hub)
+        public static void PushNewAnouncementToAllUsers(AnnouncementViewModel message, TeduShopHub hub)
         {
             IHubConnectionContext<dynamic> clients = GetClients(hub);
             clients.All.addAnnouncement(message);

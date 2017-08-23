@@ -4,6 +4,7 @@ using BLogicLicense.Model.Models;
 using BLogicLicense.Service;
 using BLogicLicense.Web.Infrastructure.Core;
 using BLogicLicense.Web.Models.UnregisterKey;
+using BLogicLicense.Web.SignalR;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -105,6 +106,9 @@ namespace BLogicLicense.Web.Controllers
                         return request.CreateResponse(HttpStatusCode.BadRequest, new ErrorReturn($"Key '{viewModel.Key}' is duplicated."));
                     }
                     response = request.CreateResponse(HttpStatusCode.OK, id);
+                    //push notification
+                    var total = _unregisterKeyService.GetAll().Count;
+                    TeduShopHub.PushTotalUnregisterKeyToAllUsers(total, null);
                     return response;
                 });
             }
