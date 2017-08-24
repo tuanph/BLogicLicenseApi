@@ -18,18 +18,23 @@ namespace BLogicLicense.Service
         Store EditStore(Store newStore);
         string Delete(string storeId);
         List<Store> GellAllWithOutProductKey();
+        int CheckLicese(string key, string softwareCode);
     }
 
     public class StoreService : IStoreService
     {
         private IStoreRepository _storeRepository;
         private IProductKeyRepository _productKeyRepository;
+        private IUnregisterKeyRepository _unregisterKeyRepository;
+        private ISoftwareRepository _softwareRepository;
         private IUnitOfWork _unitOfWork;
 
-        public StoreService(IStoreRepository storeRepository, IUnitOfWork unitOfWork, IProductKeyRepository productKeyRepository)
+        public StoreService(IStoreRepository storeRepository, IUnitOfWork unitOfWork, IProductKeyRepository productKeyRepository, ISoftwareRepository softwareRepository, IUnregisterKeyRepository unregisterKeyRepository)
         {
             this._storeRepository = storeRepository;
             this._productKeyRepository = productKeyRepository;
+            this._softwareRepository = softwareRepository;
+            this._unregisterKeyRepository = unregisterKeyRepository;
             this._unitOfWork = unitOfWork;
         }
 
@@ -108,6 +113,49 @@ namespace BLogicLicense.Service
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public int CheckLicese(string key, string softwareCode)
+        {
+            var pk = this._productKeyRepository.GetSingleByCondition(p => p.Key == key);
+            if (pk == null)
+            {
+                //Add/Update Unregister key
+                var software = this._softwareRepository.GetSingleByCondition(s => s.Code.ToString() == softwareCode);
+                var existsUk = this._unregisterKeyRepository.GetSingleByCondition(u => u.Key == key);
+                if (existsUk != null)
+                {
+                    existsUk.DateConnected = DateTime.Now;
+                    this._unregisterKeyRepository.Update(existsUk);
+                }
+                else
+                {
+                    UnRegisterKey uk = new UnRegisterKey()
+                    {
+                        DateConnected = DateTime.Now,
+                        Key = key,
+                        SoftwareID = software.ID
+                    };
+                    this._unregisterKeyRepository.Add(uk);
+                }
+                this.Save();
+                return -2;
+            }
+
+            if (pk.IsLock)
+            {
+                return -3;
+            }
+
+            int countDays = (int)pk.DateExpire.Subtract(DateTime.Today).TotalDays;
+            if (countDays < 0) //Expried
+            {
+                return -1;
+            }
+            if (countDays <= 3)//waring
+                return countDays;
+            return 999999;
+
         }
     }
 }

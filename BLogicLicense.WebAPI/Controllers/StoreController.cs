@@ -10,6 +10,8 @@ using BLogicLicense.Web.Models.Store;
 using AutoMapper;
 using BLogicLicense.Model.Models;
 using BLogicLicense.Common.Exceptions;
+using BLogicLicense.Web.Models.CheckLicense;
+using BLogicLicense.Web.SignalR;
 
 namespace BLogicLicense.Web.Controllers
 {
@@ -18,9 +20,11 @@ namespace BLogicLicense.Web.Controllers
     public class StoreController : ApiControllerBase
     {
         private IStoreService _storeService;
-        public StoreController(IErrorService errorService, IStoreService storeService) : base(errorService)
+        private IUnregisterKeyService _unregisterKeyService;
+        public StoreController(IErrorService errorService, IStoreService storeService, IUnregisterKeyService unregisterKeyService) : base(errorService)
         {
             this._storeService = storeService;
+            this._unregisterKeyService = unregisterKeyService;
         }
 
         [Route("getlistpaging")]
@@ -225,7 +229,6 @@ namespace BLogicLicense.Web.Controllers
             }
         }
 
-
         [Route("delete")]
         [HttpDelete]
         public HttpResponseMessage Delete(HttpRequestMessage request, string id)
@@ -236,6 +239,60 @@ namespace BLogicLicense.Web.Controllers
                 {
                     this._storeService.Delete(id);
                     return request.CreateResponse(HttpStatusCode.OK, id);
+                }
+                catch (Exception dex)
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, dex.Message);
+                }
+            }
+            else
+            {
+                return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+        }
+
+
+        [Route("checklicense/{key}/{softwareCode}")]
+        [HttpGet]
+        public HttpResponseMessage CheckLicense(HttpRequestMessage request, string key, string softwareCode)
+        {
+            if (ModelState.IsValid)
+            {
+                var newStore = new Store();
+                try
+                {
+                    int temp = this._storeService.CheckLicese(key, softwareCode);
+                    CheckLicenseResponseViewModel response = new CheckLicenseResponseViewModel();
+                    response.ReturnCode = temp.ToString();
+                    response.ActionCode = "-1";
+                    response.CountDays = temp;
+                    response.Key = key;
+                    switch (temp)
+                    {
+                        case -2:
+                            //push notification
+                            var total = _unregisterKeyService.GetAll().Count;
+                            TeduShopHub.PushTotalUnregisterKeyToAllUsers(total, null);
+                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "This is unlicensed product. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                            break;
+                        case -3:
+                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID was locked. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                            break;
+                        case -1:
+                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID was expried. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                            break;
+                        case 999999:
+                            response.Message = "Working";
+                            break;
+                        case 0:
+                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID will expried today." + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                            break;
+                        default:
+                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID will expried in next " + temp.ToString() + " day(s)." + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                            break;
+                    }
+
+                    return request.CreateResponse(HttpStatusCode.OK, response);
                 }
                 catch (Exception dex)
                 {
