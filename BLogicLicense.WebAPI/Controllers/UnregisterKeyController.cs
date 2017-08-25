@@ -3,7 +3,7 @@ using BLogicLicense.Common.Exceptions;
 using BLogicLicense.Model.Models;
 using BLogicLicense.Service;
 using BLogicLicense.Web.Infrastructure.Core;
-using BLogicLicense.Web.Models.UnregisterKey;
+using BLogicLicense.Service.ViewModels.UnregisterKey;
 using BLogicLicense.Web.SignalR;
 using Microsoft.AspNet.Identity;
 using System;

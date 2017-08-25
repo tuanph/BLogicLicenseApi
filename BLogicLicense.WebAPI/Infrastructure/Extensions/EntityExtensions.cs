@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using BLogicLicense.Model.Models;
-using BLogicLicense.Web.Models;
+using BLogicLicense.Service.ViewModels;
 
 namespace BLogicLicense.Web.Infrastructure.Extensions
 {

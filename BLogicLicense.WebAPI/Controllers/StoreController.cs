@@ -6,11 +6,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLogicLicense.Service;
-using BLogicLicense.Web.Models.Store;
+using BLogicLicense.Service.ViewModels.Store;
 using AutoMapper;
 using BLogicLicense.Model.Models;
 using BLogicLicense.Common.Exceptions;
-using BLogicLicense.Web.Models.CheckLicense;
+using BLogicLicense.Service.ViewModels.CheckLicense;
 using BLogicLicense.Web.SignalR;
 
 namespace BLogicLicense.Web.Controllers

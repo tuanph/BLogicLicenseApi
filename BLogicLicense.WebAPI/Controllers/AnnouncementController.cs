@@ -8,7 +8,7 @@ using System.Web.Http;
 using BLogicLicense.Model.Models;
 using BLogicLicense.Service;
 using BLogicLicense.Web.Infrastructure.Core;
-using BLogicLicense.Web.Models.Common;
+using BLogicLicense.Service.ViewModels.Common;
 using BLogicLicense.Web.SignalR;
 
 namespace BLogicLicense.Web.Controllers

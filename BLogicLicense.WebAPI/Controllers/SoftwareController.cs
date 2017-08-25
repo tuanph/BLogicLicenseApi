@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLogicLicense.Service;
-using BLogicLicense.Web.Models.Software;
+using BLogicLicense.Service.ViewModels.Software;
 using AutoMapper;
 using BLogicLicense.Model.Models;
 

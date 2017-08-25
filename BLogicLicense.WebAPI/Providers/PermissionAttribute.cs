@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using BLogicLicense.Common.Enums;
-using BLogicLicense.Web.Models;
+using BLogicLicense.Service.ViewModels;
 
 namespace BLogicLicense.Web.Providers
 {

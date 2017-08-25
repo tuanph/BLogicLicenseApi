@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BLogicLicense.Service;
 using BLogicLicense.Web.Infrastructure.Core;
-using BLogicLicense.Web.Models.Common;
+using BLogicLicense.Service.ViewModels.Common;
 
 namespace BLogicLicense.Web.SignalR
 {

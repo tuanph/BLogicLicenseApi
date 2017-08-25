@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using BLogicLicense.Model.Models;
-using BLogicLicense.Web.Models;
-using BLogicLicense.Web.Models.Common;
-using BLogicLicense.Web.Models.Software;
-using BLogicLicense.Web.Models.Store;
-using BLogicLicense.Web.Models.UnregisterKey;
+using BLogicLicense.Service.ViewModels;
+using BLogicLicense.Service.ViewModels.Common;
+using BLogicLicense.Service.ViewModels.Software;
+using BLogicLicense.Service.ViewModels.Store;
+using BLogicLicense.Service.ViewModels.UnregisterKey;
 
 namespace BLogicLicense.Web.Mappings
 {
