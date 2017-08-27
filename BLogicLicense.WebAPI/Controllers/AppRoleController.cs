@@ -13,13 +13,13 @@ using BLogicLicense.Service;
 using BLogicLicense.Web.App_Start;
 using BLogicLicense.Web.Infrastructure.Core;
 using BLogicLicense.Web.Infrastructure.Extensions;
-using BLogicLicense.Web.Models;
-using BLogicLicense.Web.Models.DataContracts;
+using BLogicLicense.Service.ViewModels;
+using BLogicLicense.Service.ViewModels.DataContracts;
 
 namespace BLogicLicense.Web.Controllers
 {
     [RoutePrefix("api/appRole")]
-    //[Authorize]
+    [Authorize]
     public class AppRoleController : ApiControllerBase
     {
         private IPermissionService _permissionService;

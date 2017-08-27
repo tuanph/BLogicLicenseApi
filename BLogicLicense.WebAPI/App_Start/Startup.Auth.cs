@@ -10,9 +10,6 @@ using System;
 using BLogicLicense.Data;
 using BLogicLicense.Model.Models;
 using BLogicLicense.Web.Providers;
-using Newtonsoft.Json.Serialization;
-using System.Web.Http;
-using Newtonsoft.Json;
 
 [assembly: OwinStartup(typeof(BLogicLicense.Web.App_Start.Startup))]
 
@@ -34,13 +31,6 @@ namespace BLogicLicense.Web.App_Start
 
             //Allow Cross origin for API
             app.UseCors(CorsOptions.AllowAll);
-
-            //return camelCase json
-            var formatters = GlobalConfiguration.Configuration.Formatters;
-            var jsonFormatter = formatters.JsonFormatter;
-            var settings = jsonFormatter.SerializerSettings;
-            settings.Formatting = Formatting.Indented;
-            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
 
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions

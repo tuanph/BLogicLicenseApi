@@ -15,7 +15,7 @@ using BLogicLicense.Model.Models;
 using BLogicLicense.Service;
 using BLogicLicense.Web.Infrastructure.Core;
 using BLogicLicense.Web.Infrastructure.Extensions;
-using BLogicLicense.Web.Models;
+using BLogicLicense.Service.ViewModels;
 using BLogicLicense.Web.Providers;
 
 namespace BLogicLicense.Web.Controllers

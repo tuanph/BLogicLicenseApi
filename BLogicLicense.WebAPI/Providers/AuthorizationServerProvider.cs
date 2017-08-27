@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using BLogicLicense.Model.Models;
 using BLogicLicense.Service;
 using BLogicLicense.Web.Infrastructure.Core;
-using BLogicLicense.Web.Models;
+using BLogicLicense.Service.ViewModels;
 
 namespace BLogicLicense.Web.Providers
 {

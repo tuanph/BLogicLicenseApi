@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using BLogicLicense.Model.Models;
-using BLogicLicense.Web.Models;
-using BLogicLicense.Web.Models.Common;
+using BLogicLicense.Service.ViewModels;
+using BLogicLicense.Service.ViewModels.Common;
+using BLogicLicense.Service.ViewModels.Software;
+using BLogicLicense.Service.ViewModels.Store;
+using BLogicLicense.Service.ViewModels.UnregisterKey;
 
 namespace BLogicLicense.Web.Mappings
 {
@@ -33,6 +36,9 @@ namespace BLogicLicense.Web.Mappings
                 cfg.CreateMap<OrderDetail, OrderDetailViewModel>();
                 cfg.CreateMap<Announcement, AnnouncementViewModel>();
                 cfg.CreateMap<AnnouncementUser, AnnouncementUserViewModel>();
+                cfg.CreateMap<Store, StoreViewModel>();
+                cfg.CreateMap<Software, SoftwareViewModel>();
+                cfg.CreateMap<UnRegisterKey, UnregisterKeyViewModel>();
             });
         }
     }

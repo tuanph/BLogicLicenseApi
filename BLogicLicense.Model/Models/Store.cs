@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -33,5 +34,6 @@ namespace BLogicLicense.Model.Models
         public virtual ICollection<ProductKey> ProductKeys { get; set; }
         public int ExpriedType { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
