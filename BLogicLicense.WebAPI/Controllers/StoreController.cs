@@ -27,6 +27,19 @@ namespace BLogicLicense.Web.Controllers
             this._unregisterKeyService = unregisterKeyService;
         }
 
+        [Route("getcurrentdate")]
+        [HttpGet]
+        public HttpResponseMessage GetCurrentDate(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
+                response = request.CreateResponse(HttpStatusCode.OK, DateTime.Now.ToString());
+
+                return response;
+            });
+        }
+
         [Route("getlistpaging")]
         [HttpGet]
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, int pageIndex, int pageSize, string filter = "")
