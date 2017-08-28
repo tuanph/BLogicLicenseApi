@@ -59,22 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\AnnouncementService.cs" />
-    <Compile Include="Services\CommonService.cs" />
-    <Compile Include="Services\ContactDetailService.cs" />
     <Compile Include="Services\ErrorService.cs" />
-    <Compile Include="Services\FeedbackService.cs" />
-    <Compile Include="Services\FunctionService.cs" />
-    <Compile Include="Services\OrderService.cs" />
-    <Compile Include="Services\PageService.cs" />
-    <Compile Include="Services\PermissionService.cs" />
-    <Compile Include="Services\PostCategoryService.cs" />
-    <Compile Include="Services\PostService.cs" />
-    <Compile Include="Services\ProductCategoryService.cs" />
-    <Compile Include="Services\ProductImageService.cs" />
-    <Compile Include="Services\ProductQuantityService.cs" />
-    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\StatisticService.cs" />
+    <Compile Include="Services\FunctionService.cs" />
+    <Compile Include="Services\PermissionService.cs" />
     <Compile Include="Services\SoftwareService.cs" />
     <Compile Include="Services\StoreService.cs" />
     <Compile Include="Services\UnregisterKeyService.cs" />

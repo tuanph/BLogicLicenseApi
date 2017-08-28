@@ -29,7 +29,7 @@ namespace BLogicLicense.Web.Controllers
 
         [Route("getlistpaging")]
         [HttpGet]
-        [Permission(Action = "Read", Function = "USER")]
+        //[Permission(Action = "Read", Function = "USER")]
         public HttpResponseMessage GetListPaging(HttpRequestMessage request, int page, int pageSize, string filter = null)
         {
             return CreateHttpResponse(request, () =>
@@ -55,7 +55,7 @@ namespace BLogicLicense.Web.Controllers
 
         [Route("detail/{id}")]
         [HttpGet]
-        [Permission(Action = "Read", Function = "USER")]
+        //[Permission(Action = "Read", Function = "USER")]
         //[Authorize(Roles = "ViewUser")]
         public async Task<HttpResponseMessage> Details(HttpRequestMessage request, string id)
         {
@@ -80,7 +80,7 @@ namespace BLogicLicense.Web.Controllers
         [HttpPost]
         [Route("add")]
         //[Authorize(Roles = "AddUser")]
-        [Permission(Action = "Create", Function = "USER")]
+        //[Permission(Action = "Create", Function = "USER")]
         public async Task<HttpResponseMessage> Create(HttpRequestMessage request, AppUserViewModel applicationUserViewModel)
         {
             if (ModelState.IsValid)
@@ -119,7 +119,7 @@ namespace BLogicLicense.Web.Controllers
         [HttpPut]
         [Route("update")]
         //[Authorize(Roles = "UpdateUser")]
-        [Permission(Action = "Update", Function = "USER")]
+        //[Permission(Action = "Update", Function = "USER")]
         public async Task<HttpResponseMessage> Update(HttpRequestMessage request, AppUserViewModel applicationUserViewModel)
         {
             if (ModelState.IsValid)
@@ -155,7 +155,7 @@ namespace BLogicLicense.Web.Controllers
 
         [HttpDelete]
         [Route("delete")]
-        [Permission(Action = "Delete", Function = "USER")]
+        //[Permission(Action = "Delete", Function = "USER")]
         //[Authorize(Roles ="DeleteUser")]
         public async Task<HttpResponseMessage> Delete(HttpRequestMessage request, string id)
         {

@@ -308,13 +308,6 @@
     <Compile Include="Controllers\AppUserController.cs" />
     <Compile Include="Controllers\FunctionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\PostCategoryController.cs" />
-    <Compile Include="Controllers\ProductCategoryController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\ProductImageController.cs" />
-    <Compile Include="Controllers\ProductQuantityController.cs" />
-    <Compile Include="Controllers\StatisticController.cs" />
     <Compile Include="Controllers\SoftwareController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UnregisterKeyController.cs" />

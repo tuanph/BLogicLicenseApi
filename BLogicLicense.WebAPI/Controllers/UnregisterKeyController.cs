@@ -60,7 +60,7 @@ namespace BLogicLicense.Web.Controllers
                     List<UnregisterKeyViewModel> modelVm = Mapper.Map<List<UnRegisterKey>, List<UnregisterKeyViewModel>>(model);
                     modelVm.ForEach(k =>
                     {
-                        k.DateExpried = DateTime.Today.ToString("MM/dd/yyyy");
+                        k.DateExpried = DateTime.Today.AddMonths(1).ToString("MM/dd/yyyy");
                         k.StoreID = 1;
                     });
 
