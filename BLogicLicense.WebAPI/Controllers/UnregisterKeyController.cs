@@ -15,6 +15,7 @@ using System.Web.Http;
 namespace BLogicLicense.Web.Controllers
 {
     [RoutePrefix("api/unregisterKey")]
+    [Authorize]
     public class UnregisterKeyController : ApiControllerBase
     {
         private IUnregisterKeyService _unregisterKeyService;

@@ -1,4 +1,6 @@
-﻿namespace BLogicLicense.Service.ViewModels.CheckLicense
+﻿using System;
+
+namespace BLogicLicense.Service.ViewModels.CheckLicense
 {
     public class CheckLicenseResponseViewModel
     {
@@ -8,5 +10,6 @@
         public string ActionCode { get; set; }
         public int CountDays { get; set; }
         public int StoreID { get; set; }
+        public DateTime DateExpried { get; set; }
     }
 }

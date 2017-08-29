@@ -11,6 +11,7 @@ using BLogicLicense.Model.Models;
 namespace BLogicLicense.Web.Controllers
 {
     [RoutePrefix("api/software")]
+    [Authorize]
     public class SoftwareController : ApiControllerBase
     {
         private ISoftwareService _softwareService;

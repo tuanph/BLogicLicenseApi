@@ -16,7 +16,6 @@ using BLogicLicense.Web.SignalR;
 namespace BLogicLicense.Web.Controllers
 {
     [RoutePrefix("api/store")]
-    //[Authorize]
     public class StoreController : ApiControllerBase
     {
         private IStoreService _storeService;
@@ -280,31 +279,33 @@ namespace BLogicLicense.Web.Controllers
                     response.ActionCode = "-1";
                     response.CountDays = temp;
                     response.Key = key;
-                    switch (temp)
+                    if (temp == 2)
                     {
-                        case -2:
-                            //push notification
-                            var total = _unregisterKeyService.GetAll().Count;
-                            TeduShopHub.PushTotalUnregisterKeyToAllUsers(total, null);
-                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "This is unlicensed product. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
-                            break;
-                        case -3:
-                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID was locked. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
-                            break;
-                        case -1:
-                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID was expried. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
-                            break;
-                        case 999999:
-                            response.Message = "Working";
-                            break;
-                        case 0:
-                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID will expried today." + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
-                            break;
-                        default:
-                            response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID will expried in next " + temp.ToString() + " day(s)." + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
-                            break;
+                        var total = _unregisterKeyService.GetAll().Count;
+                        TeduShopHub.PushTotalUnregisterKeyToAllUsers(total, null);
+                        response.Message = "ProductID: " + key + "." + Environment.NewLine + "This is unlicensed product. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
                     }
-
+                    if (temp == -3)
+                    {
+                        response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID was locked. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                    }
+                    if (temp == -1)
+                    {
+                        response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID was expried. " + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                    }
+                    if (temp == 0)
+                    {
+                        response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID will expried today." + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                    }
+                    if (temp > 0 && temp <= 3)
+                    {
+                        response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID will expried in next " + temp.ToString() + " day(s)." + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
+                    }
+                    if(temp > 3)
+                    {
+                        response.Message = "Working";
+                    }
+                    response.DateExpried = DateTime.Today.AddDays(temp);
                     return request.CreateResponse(HttpStatusCode.OK, response);
                 }
                 catch (Exception dex)
