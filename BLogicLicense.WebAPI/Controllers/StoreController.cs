@@ -86,7 +86,7 @@ namespace BLogicLicense.Web.Controllers
             {
                 foreach (var store in stores)
                 {
-                    store.ExpriedType = CheckStoreExpried(store.ProductKeys); // 0:Normal 1:Warning 2:Exiree 3:Empty
+                    store.ExpriedType = CheckStoreExpried(store.ProductKeys.OrderBy(k => k.DateExpire).ToList()); // 0:Normal 1:Warning 2:Exiree 3:Empty
                 }
             }
             catch (Exception ex)
@@ -279,7 +279,7 @@ namespace BLogicLicense.Web.Controllers
                     response.ActionCode = "-1";
                     response.CountDays = temp;
                     response.Key = key;
-                    if (temp == 2)
+                    if (temp == -2)
                     {
                         var total = _unregisterKeyService.GetAll().Count;
                         TeduShopHub.PushTotalUnregisterKeyToAllUsers(total, null);
@@ -301,7 +301,7 @@ namespace BLogicLicense.Web.Controllers
                     {
                         response.Message = "ProductID: " + key + "." + Environment.NewLine + "Your productID will expried in next " + temp.ToString() + " day(s)." + Environment.NewLine + "Please contact us at www.blogicsystems.com.";
                     }
-                    if(temp > 3)
+                    if (temp > 3)
                     {
                         response.Message = "Working";
                     }
