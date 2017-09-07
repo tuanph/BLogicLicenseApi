@@ -71,7 +71,7 @@
                 context.SystemConfigs.Add(new SystemConfig()
                 {
                     Code = "HomeTitle",
-                    ValueString = "Trang chủ BLogicLicense",
+                    ValueString = "Home page BLogicLicense",
                 });
             }
             if (!context.SystemConfigs.Any(x => x.Code == "HomeMetaKeyword"))
@@ -79,7 +79,7 @@
                 context.SystemConfigs.Add(new SystemConfig()
                 {
                     Code = "HomeMetaKeyword",
-                    ValueString = "Trang chủ BLogicLicense",
+                    ValueString = "Home page BLogicLicense",
                 });
             }
             if (!context.SystemConfigs.Any(x => x.Code == "HomeMetaDescription"))
@@ -87,7 +87,7 @@
                 context.SystemConfigs.Add(new SystemConfig()
                 {
                     Code = "HomeMetaDescription",
-                    ValueString = "Trang chủ BLogicLicense",
+                    ValueString = "Home page BLogicLicense",
                 });
             }
         }
@@ -113,12 +113,12 @@
                 };
                 if (manager.Users.Count(x => x.UserName == "admin") == 0)
                 {
-                    manager.Create(user, "blogic");
+                    manager.Create(user, "blogic2880");
 
                     if (!roleManager.Roles.Any())
                     {
-                        roleManager.Create(new AppRole { Name = "Admin", Description = "Quản trị viên" });
-                        roleManager.Create(new AppRole { Name = "Member", Description = "Người dùng" });
+                        roleManager.Create(new AppRole { Name = "Admin", Description = "Admin" });
+                        roleManager.Create(new AppRole { Name = "Member", Description = "Member" });
                     }
 
                     var adminUser = manager.FindByName("admin");
