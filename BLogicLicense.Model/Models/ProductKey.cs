@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -33,7 +34,10 @@ namespace BLogicLicense.Model.Models
         [Column(TypeName = "nvarchar")]
         public string DeviceName { get; set; }
         public bool IsLock { get; set; }
-    
+
+        [DefaultValue("false")]
+        public bool IsNeverExpried { get; set; }
+
 
     }
 }

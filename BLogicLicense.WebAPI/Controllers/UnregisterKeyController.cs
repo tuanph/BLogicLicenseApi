@@ -98,7 +98,8 @@ namespace BLogicLicense.Web.Controllers
                         SoftwareID = viewModel.SoftwareID,
                         StoreID = viewModel.StoreID,
                         LastRenewal = DateTime.Now,
-                        IsLock = false
+                        IsLock = false,
+                        IsNeverExpried = viewModel.IsNeverExpried
                     };
 
                     int id = _unregisterKeyService.RegisterKey(model);

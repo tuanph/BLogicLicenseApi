@@ -103,11 +103,11 @@ namespace BLogicLicense.Web.Controllers
                     return 3;
                 foreach (var pr in productKeys)
                 {
-                    if (pr.DateExpire.Date.Subtract(DateTime.Today).TotalDays < 0 || pr.IsLock) //Software expried
+                    if (pr.DateExpire.Date.Subtract(DateTime.Today).TotalDays < 0 && !pr.IsNeverExpried)  //Software expried
                     {
                         return 2;//Expired
                     }
-                    if (pr.DateExpire.Date.Subtract(DateTime.Today).TotalDays <= 3)
+                    if (pr.DateExpire.Date.Subtract(DateTime.Today).TotalDays <= 3 && !pr.IsNeverExpried)
                     {
                         return 1; //Warning
                     }

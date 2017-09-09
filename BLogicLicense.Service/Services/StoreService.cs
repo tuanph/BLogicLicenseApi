@@ -141,7 +141,10 @@ namespace BLogicLicense.Service
                 this.Save();
                 return -2;
             }
-
+            if (pk.IsNeverExpried)
+            {
+                return 9999;
+            }
             if (pk.IsLock)
             {
                 return -3;

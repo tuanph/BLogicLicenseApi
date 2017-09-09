@@ -12,5 +12,6 @@ namespace BLogicLicense.Service.ViewModels.UnregisterKey
         public int StoreID { get; set; }
         public DateTime DateExpried { get; set; }
         public int EmployeeID { get; set; }
+        public bool IsNeverExpried { get; set; }
     }
 }

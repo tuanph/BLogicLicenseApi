@@ -80,12 +80,13 @@ namespace BLogicLicense.Web.Controllers
                             {
                                 directory = "/UploadedFiles/";
                             }
-                            if (!Directory.Exists(HttpContext.Current.Server.MapPath(directory)))
+                            string rootPath = HttpContext.Current.Server.MapPath("~");
+                            if (!Directory.Exists(rootPath + directory))
                             {
-                                Directory.CreateDirectory(HttpContext.Current.Server.MapPath(directory));
+                                Directory.CreateDirectory(rootPath + directory);
                             }
 
-                            string path = Path.Combine(HttpContext.Current.Server.MapPath(directory), postedFile.FileName);
+                            string path = Path.Combine(rootPath + directory, postedFile.FileName);
                             //Userimage myfolder name where i want to save my image
                             postedFile.SaveAs(path);
                             return Request.CreateResponse(HttpStatusCode.OK, Path.Combine(directory, postedFile.FileName));

@@ -337,8 +337,6 @@
     <Content Include="Scripts\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Templates\product-detail.html" />
-    <Content Include="UploadedFiles\Avatars\image001.png" />
-    <Content Include="UploadedFiles\Avatars\ms.PNG" />
     <Content Include="UploadedFiles\Products\754967p6.jpg" />
     <Content Include="UploadedFiles\Products\avarta.jpg" />
     <Content Include="UploadedFiles\Products\images %281%29.jpg" />
@@ -354,6 +352,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />
+    <Folder Include="UploadedFiles\Avatars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

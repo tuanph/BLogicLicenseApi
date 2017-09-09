@@ -42,11 +42,11 @@ namespace BLogicLicense.Web.Infrastructure.Extensions
         {
             appUser.Id = appUserViewModel.Id;
             appUser.FullName = appUserViewModel.FullName;
-            if (!string.IsNullOrEmpty(appUserViewModel.BirthDay))
-            {
-                DateTime dateTime = DateTime.ParseExact(appUserViewModel.BirthDay, "dd/MM/yyyy", new CultureInfo("vi-VN"));
-                appUser.BirthDay = dateTime;
-            }
+            //if (!string.IsNullOrEmpty(appUserViewModel.BirthDay))
+            //{
+            //    DateTime dateTime = DateTime.ParseExact(appUserViewModel.BirthDay, "dd/MM/yyyy", new CultureInfo("vi-VN"));
+            //    appUser.BirthDay = dateTime;
+            //}
 
             appUser.Email = appUserViewModel.Email;
             appUser.Address = appUserViewModel.Address;
